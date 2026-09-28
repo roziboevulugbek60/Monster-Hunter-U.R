@@ -1,0 +1,1418 @@
+
+/* =========================================================
+   MONSTER HUNTER — ULUG'BEK.R
+   STYLE.CSS
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #07111f;
+    --bg2: #101c2e;
+    --panel: rgba(12, 24, 42, 0.94);
+    --panel-light: rgba(25, 43, 68, 0.92);
+    --primary: #ff9f1c;
+    --primary2: #ff6b00;
+    --red: #ff3b3b;
+    --green: #31e981;
+    --blue: #36a3ff;
+    --purple: #a66cff;
+    --gold: #ffd447;
+    --text: #ffffff;
+    --muted: #9eb0c8;
+    --border: rgba(255,255,255,0.12);
+    --shadow: 0 15px 45px rgba(0,0,0,0.45);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, #172a44 0%, #07111f 55%, #030812 100%);
+    color: var(--text);
+}
+
+button {
+    border: 0;
+    outline: 0;
+    font-family: inherit;
+    cursor: pointer;
+    user-select: none;
+}
+
+button:active {
+    transform: scale(0.94);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   SCREENS
+========================================================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 100;
+}
+
+.screen.active {
+    display: flex;
+}
+
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+#loadingScreen {
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at center, #1b3150, #050b14 70%);
+}
+
+.loading-box {
+    width: min(90%, 450px);
+    padding: 45px 30px;
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    background: rgba(8, 18, 32, 0.92);
+    box-shadow: var(--shadow);
+    animation: loadingAppear 0.8s ease;
+}
+
+.loading-icon {
+    font-size: 80px;
+    animation: monsterFloat 1.4s infinite ease-in-out;
+}
+
+.loading-box h1 {
+    margin-top: 15px;
+    font-size: clamp(30px, 6vw, 52px);
+    letter-spacing: 3px;
+    color: var(--primary);
+}
+
+.loading-box p {
+    margin: 10px 0 25px;
+    color: var(--muted);
+    letter-spacing: 4px;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #1b293c;
+}
+
+#loadingProgress {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--primary2), var(--gold));
+    transition: width 0.15s linear;
+}
+
+.loading-box span {
+    display: block;
+    margin-top: 14px;
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   MAIN MENU
+========================================================= */
+
+#mainMenu {
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 20px;
+    background:
+        radial-gradient(circle at 50% 20%, rgba(255,159,28,0.15), transparent 35%),
+        linear-gradient(135deg, #07111f, #101d31 50%, #050b14);
+}
+
+.menu-container {
+    width: min(94vw, 560px);
+    text-align: center;
+    padding: 35px 25px 20px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: rgba(7, 17, 31, 0.82);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--shadow);
+}
+
+.game-logo {
+    margin-bottom: 28px;
+}
+
+.logo-monster {
+    font-size: 78px;
+    animation: monsterFloat 2s ease-in-out infinite;
+}
+
+.game-logo h1 {
+    font-size: clamp(42px, 9vw, 70px);
+    line-height: 0.85;
+    letter-spacing: 4px;
+    text-shadow: 0 8px 25px rgba(0,0,0,0.7);
+}
+
+.game-logo h1 span {
+    color: var(--primary);
+}
+
+.game-logo p {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.menu-buttons {
+    display: grid;
+    gap: 11px;
+}
+
+.menu-btn {
+    min-height: 52px;
+    padding: 13px 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, #17283e, #0e1b2d);
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: 0.2s;
+}
+
+.menu-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,159,28,0.6);
+    background: linear-gradient(135deg, #253b56, #14263d);
+}
+
+.menu-btn.primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
+    color: #111;
+    box-shadow: 0 8px 25px rgba(255,107,0,0.3);
+}
+
+.menu-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.menu-stats div {
+    padding: 12px 5px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+}
+
+.menu-stats span {
+    font-size: 18px;
+}
+
+.menu-stats strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 17px;
+}
+
+footer,
+.game-footer {
+    color: #7f91aa;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   GAME SCREEN
+========================================================= */
+
+.game-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    overflow: hidden;
+    background: #07111f;
+}
+
+.game-screen.active {
+    display: block;
+}
+
+.game-hud {
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 78px;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 15px;
+    align-items: center;
+    padding: 10px 16px;
+    background: rgba(5, 12, 22, 0.88);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+}
+
+.player-hud {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.player-name {
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.hp-container,
+.xp-container {
+    width: min(220px, 20vw);
+}
+
+.hud-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 4px;
+    color: #d8e1ee;
+}
+
+.bar {
+    width: 100%;
+    height: 9px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #26364a;
+}
+
+.hp-bar {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff3131, #ff6f6f);
+    transition: width 0.25s;
+}
+
+.xp-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #8d4dff, #bd91ff);
+    transition: width 0.25s;
+}
+
+.level {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--gold);
+    white-space: nowrap;
+}
+
+.game-info {
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.game-controls {
+    display: flex;
+    gap: 7px;
+}
+
+.game-controls button {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.game-controls button:hover {
+    background: rgba(255,159,28,0.2);
+}
+
+
+/* =========================================================
+   GAME WORLD / CANVAS
+========================================================= */
+
+#gameWorld {
+    position: absolute;
+    inset: 0;
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 50% 50%, #315f38 0%, #183d27 55%, #0d2919 100%);
+    cursor: crosshair;
+}
+
+
+/* =========================================================
+   ZONE INFO
+========================================================= */
+
+.zone-info {
+    position: absolute;
+    z-index: 15;
+    top: 94px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 18px;
+    border-radius: 30px;
+    background: rgba(5,12,22,0.7);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e9f2ff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   BOSS COUNTER
+========================================================= */
+
+.boss-counter {
+    position: absolute;
+    z-index: 30;
+    top: 105px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    border: 1px solid rgba(255,50,50,0.4);
+    border-radius: 18px;
+    background: rgba(70,5,10,0.8);
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255,0,0,0.18);
+    animation: bossPulse 1.2s infinite;
+}
+
+.boss-warning {
+    color: #ff5555;
+    font-weight: 1000;
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   MONSTER HUD
+========================================================= */
+
+.monster-hud {
+    position: absolute;
+    z-index: 25;
+    left: 50%;
+    bottom: 125px;
+    transform: translateX(-50%);
+    width: min(350px, 75vw);
+    padding: 12px 16px;
+    border-radius: 15px;
+    background: rgba(5,10,17,0.85);
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+}
+
+.monster-name {
+    margin-bottom: 7px;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.monster-hp-bar {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #35151a;
+}
+
+#monsterHpBar {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f21f39, #ff6565);
+    transition: width 0.2s;
+}
+
+.monster-hp-text {
+    margin-top: 5px;
+    color: #cdd8e8;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   WEAPON HUD
+========================================================= */
+
+.weapon-hud {
+    position: absolute;
+    z-index: 25;
+    left: 18px;
+    bottom: 18px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.current-weapon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 150px;
+    padding: 10px 13px;
+    border-radius: 16px;
+    background: rgba(5,12,22,0.88);
+    border: 1px solid var(--border);
+}
+
+.weapon-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(255,159,28,0.15);
+    font-size: 25px;
+}
+
+.weapon-info strong {
+    display: block;
+    font-size: 13px;
+}
+
+.weapon-info small {
+    color: var(--gold);
+}
+
+.weapon-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.weapon-actions button {
+    min-width: 62px;
+    height: 58px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: white;
+    font-size: 23px;
+    border: 1px solid var(--border);
+    transition: 0.2s;
+}
+
+.weapon-actions button span {
+    display: block;
+    font-size: 8px;
+    font-weight: 900;
+    margin-top: 3px;
+}
+
+.attack-btn {
+    background: linear-gradient(135deg, #b51f2c, #74121b);
+}
+
+.fireball-btn {
+    background: linear-gradient(135deg, #ff7a00, #b93400);
+}
+
+.potion-btn {
+    background: linear-gradient(135deg, #16a86a, #087148);
+}
+
+
+/* =========================================================
+   MOBILE CONTROLS
+========================================================= */
+
+#mobileControls {
+    display: none;
+    position: absolute;
+    z-index: 40;
+    inset: auto 0 20px 0;
+    justify-content: space-between;
+    align-items: end;
+    padding: 0 20px;
+    pointer-events: none;
+}
+
+.joystick,
+.mobile-actions {
+    pointer-events: auto;
+}
+
+.joystick {
+    text-align: center;
+}
+
+.joystick button,
+.mobile-actions button {
+    width: 48px;
+    height: 48px;
+    margin: 2px;
+    border-radius: 50%;
+    background: rgba(10,20,35,0.78);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-size: 17px;
+}
+
+.joystick [data-direction="center"] {
+    background: rgba(255,159,28,0.25);
+}
+
+.mobile-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.mobile-actions button {
+    width: 58px;
+    height: 58px;
+    font-size: 25px;
+}
+
+#mobileAttack {
+    background: rgba(190,35,45,0.8);
+}
+
+#mobileFireball {
+    background: rgba(235,83,15,0.8);
+}
+
+#mobilePotion {
+    background: rgba(20,150,95,0.8);
+}
+
+
+/* =========================================================
+   GAME FOOTER
+========================================================= */
+
+.game-footer {
+    position: absolute;
+    z-index: 20;
+    right: 15px;
+    bottom: 8px;
+    margin: 0;
+    opacity: 0.55;
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal {
+    position: fixed;
+    z-index: 200;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(7px);
+}
+
+.modal.active {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-box,
+.large-modal-box {
+    position: relative;
+    width: min(94vw, 500px);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid var(--border);
+    background:
+        linear-gradient(145deg, rgba(22,39,62,0.98), rgba(7,16,29,0.98));
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: modalAppear 0.25s ease;
+}
+
+.large-modal-box {
+    width: min(95vw, 900px);
+}
+
+.modal-box h2,
+.large-modal-box h2 {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.modal-box p {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.modal-icon {
+    font-size: 65px;
+    margin-bottom: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 18px;
+}
+
+.modal-btn {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 10px;
+    border-radius: 13px;
+    background: #1a2b42;
+    color: white;
+    font-weight: 800;
+    border: 1px solid var(--border);
+}
+
+.modal-btn.primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
+    color: #111;
+}
+
+.modal-btn.danger {
+    background: linear-gradient(135deg, #c5283d, #761321);
+}
+
+
+/* =========================================================
+   RESULT STATS
+========================================================= */
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.result-stats div {
+    display: grid;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+}
+
+.result-stats span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.result-stats strong {
+    font-size: 18px;
+}
+
+.victory h2 {
+    color: var(--gold);
+}
+
+.victory-stars {
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+
+/* =========================================================
+   SHOP
+========================================================= */
+
+.shop-coins {
+    display: inline-block;
+    margin: 10px 0 20px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: rgba(255,212,71,0.12);
+    color: var(--gold);
+    font-weight: 900;
+}
+
+.shop-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.shop-tab {
+    flex: 1;
+    padding: 12px 8px;
+    border-radius: 12px;
+    background: #14263d;
+    color: white;
+    font-weight: 800;
+}
+
+.shop-tab.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
+    color: #111;
+}
+
+.shop-content,
+.items-grid,
+.zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.shop-card,
+.item-card,
+.zone-card {
+    padding: 16px;
+    border-radius: 17px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    transition: 0.2s;
+}
+
+.shop-card:hover,
+.item-card:hover,
+.zone-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,159,28,0.5);
+}
+
+.shop-card .icon,
+.item-card .icon,
+.zone-card .icon {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.shop-card h3,
+.item-card h3,
+.zone-card h3 {
+    margin-bottom: 6px;
+}
+
+.shop-card p,
+.item-card p,
+.zone-card p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.card-price {
+    color: var(--gold);
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.card-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: #20344f;
+    color: white;
+    font-weight: 800;
+}
+
+.card-btn.buy {
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
+    color: #111;
+}
+
+.card-btn.equipped {
+    background: var(--green);
+    color: #062216;
+}
+
+.card-btn.locked {
+    background: #252b34;
+    color: #788494;
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 800;
+}
+
+.switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch span {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: #29384c;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.switch span::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 3px;
+    left: 3px;
+    border-radius: 50%;
+    background: white;
+    transition: 0.2s;
+}
+
+.switch input:checked + span {
+    background: var(--green);
+}
+
+.switch input:checked + span::after {
+    transform: translateX(24px);
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.notification {
+    position: fixed;
+    z-index: 500;
+    top: 95px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: min(90vw, 350px);
+    padding: 13px 17px;
+    border-radius: 13px;
+    background: rgba(8,17,30,0.95);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: var(--shadow);
+    transform: translateX(150%);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+/* =========================================================
+   LEVEL UP
+========================================================= */
+
+.level-up-effect {
+    position: fixed;
+    z-index: 450;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0,0,0,0.25);
+    pointer-events: none;
+}
+
+.level-up-effect.show {
+    display: flex;
+    animation: levelUp 1.8s ease forwards;
+}
+
+.level-up-effect div {
+    font-size: clamp(35px, 8vw, 70px);
+    color: var(--gold);
+    font-weight: 1000;
+    text-shadow: 0 0 30px rgba(255,212,71,0.8);
+}
+
+.level-up-effect strong {
+    font-size: 30px;
+    color: white;
+}
+
+
+/* =========================================================
+   BOSS INTRO
+========================================================= */
+
+.boss-intro {
+    position: fixed;
+    z-index: 400;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle, rgba(160,0,0,0.35), rgba(0,0,0,0.92));
+    pointer-events: none;
+}
+
+.boss-intro.show {
+    display: flex;
+    animation: bossIntro 2.8s ease forwards;
+}
+
+.boss-intro-content {
+    text-align: center;
+}
+
+.boss-skull {
+    font-size: 110px;
+    animation: bossShake 0.2s infinite;
+}
+
+.boss-intro h1 {
+    color: #ff3030;
+    font-size: clamp(38px, 9vw, 80px);
+    letter-spacing: 5px;
+    text-shadow: 0 0 30px rgba(255,0,0,0.8);
+}
+
+.boss-intro h2 {
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.boss-intro p {
+    margin-top: 15px;
+    color: #ccd2dc;
+}
+
+.boss-count {
+    margin-top: 20px;
+    color: var(--gold);
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   EFFECT LAYERS
+========================================================= */
+
+#damageLayer,
+#fireballLayer,
+#hitLayer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes loadingAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes monsterFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.85) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes bossPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255,0,0,0.15);
+    }
+
+    50% {
+        box-shadow: 0 0 35px rgba(255,0,0,0.4);
+    }
+}
+
+@keyframes levelUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.4);
+    }
+
+    20% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.25);
+    }
+}
+
+@keyframes bossIntro {
+    0% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes bossShake {
+    0% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    100% {
+        transform: translateX(-3px);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .game-hud {
+        grid-template-columns: 1fr auto;
+    }
+
+    .game-info {
+        display: none;
+    }
+
+    .player-hud {
+        gap: 8px;
+    }
+
+    .hp-container,
+    .xp-container {
+        width: 150px;
+    }
+
+    .weapon-hud {
+        bottom: 85px;
+    }
+
+    #mobileControls {
+        display: flex;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — PHONE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .menu-container {
+        padding: 25px 16px 15px;
+    }
+
+    .logo-monster {
+        font-size: 60px;
+    }
+
+    .game-logo h1 {
+        font-size: 43px;
+    }
+
+    .menu-btn {
+        min-height: 48px;
+        font-size: 13px;
+    }
+
+    .game-hud {
+        min-height: 68px;
+        padding: 7px 9px;
+    }
+
+    .player-hud {
+        flex-wrap: wrap;
+    }
+
+    .player-name {
+        width: 100%;
+    }
+
+    .hp-container,
+    .xp-container {
+        width: 42vw;
+    }
+
+    .level {
+        display: none;
+    }
+
+    .game-controls button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .zone-info {
+        top: 82px;
+        font-size: 10px;
+    }
+
+    .boss-counter {
+        top: 120px;
+        font-size: 11px;
+        padding: 9px 15px;
+    }
+
+    .monster-hud {
+        bottom: 175px;
+    }
+
+    .weapon-hud {
+        left: 8px;
+        right: 8px;
+        bottom: 88px;
+        justify-content: center;
+    }
+
+    .current-weapon {
+        display: none;
+    }
+
+    .weapon-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .weapon-actions button {
+        flex: 1;
+        max-width: 95px;
+        height: 50px;
+    }
+
+    .game-footer {
+        display: none;
+    }
+
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-box,
+    .large-modal-box {
+        padding: 23px 16px;
+        max-height: 94vh;
+    }
+
+    .modal-box h2,
+    .large-modal-box h2 {
+        font-size: 24px;
+    }
+
+    .modal-icon {
+        font-size: 48px;
+    }
+
+    .result-stats {
+        gap: 7px;
+    }
+
+    .shop-tabs {
+        overflow-x: auto;
+    }
+
+    .shop-tab {
+        min-width: 100px;
+    }
+
+    .shop-content,
+    .items-grid,
+    .zones-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .shop-card,
+    .item-card,
+    .zone-card {
+        padding: 11px;
+    }
+
+    .shop-card .icon,
+    .item-card .icon,
+    .zone-card .icon {
+        font-size: 32px;
+    }
+
+    #mobileControls {
+        bottom: 13px;
+        padding: 0 10px;
+    }
+
+    .joystick button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .mobile-actions button {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .game-controls {
+        gap: 3px;
+    }
+
+    .game-controls button {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .hp-container,
+    .xp-container {
+        width: 39vw;
+    }
+
+    .weapon-actions button {
+        font-size: 18px;
+    }
+
+    .weapon-actions button span {
+        font-size: 7px;
+    }
+
+    .shop-content,
+    .items-grid,
+    .zones-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+

@@ -1,0 +1,684 @@
+
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101827">
+
+    <title>Monster Hunter | ULUG'BEK.R</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================
+     LOADING
+========================= -->
+<div id="loadingScreen" class="screen active">
+    <div class="loading-box">
+        <div class="loading-icon">👹</div>
+        <h1>MONSTER HUNTER</h1>
+        <p>ULUG'BEK.R</p>
+        <div class="loading-bar">
+            <div id="loadingProgress"></div>
+        </div>
+        <span>Yuklanmoqda...</span>
+    </div>
+</div>
+
+
+<!-- =========================
+     MAIN MENU
+========================= -->
+<div id="mainMenu" class="screen">
+
+    <div class="menu-container">
+
+        <div class="game-logo">
+            <div class="logo-monster">👹</div>
+            <h1>MONSTER<br><span>HUNTER</span></h1>
+            <p>⚔️ THE ULTIMATE HUNT ⚔️</p>
+        </div>
+
+        <div class="menu-buttons">
+
+            <button id="startGameBtn" class="menu-btn primary">
+                🎮 O'YINNI BOSHLASH
+            </button>
+
+            <button id="shopBtn" class="menu-btn">
+                🛒 MAGAZIN
+            </button>
+
+            <button id="weaponsBtn" class="menu-btn">
+                🏹 QUROLLAR
+            </button>
+
+            <button id="skinsBtn" class="menu-btn">
+                👕 SKINLAR
+            </button>
+
+            <button id="zonesBtn" class="menu-btn">
+                🗺️ ZONALAR
+            </button>
+
+            <button id="settingsBtn" class="menu-btn">
+                ⚙️ SOZLAMALAR
+            </button>
+
+        </div>
+
+        <div class="menu-stats">
+            <div>
+                <span>💰</span>
+                <strong id="menuCoins">0</strong>
+            </div>
+
+            <div>
+                <span>⭐</span>
+                <strong id="menuLevel">1</strong>
+            </div>
+
+            <div>
+                <span>👾</span>
+                <strong id="menuKills">0</strong>
+            </div>
+        </div>
+
+        <footer>
+            ULUG'BEK.R
+        </footer>
+
+    </div>
+</div>
+
+
+<!-- =========================
+     GAME SCREEN
+========================= -->
+<div id="gameScreen" class="game-screen">
+
+    <!-- TOP HUD -->
+    <header class="game-hud">
+
+        <div class="player-hud">
+
+            <div class="player-name">
+                🧙 <span id="playerName">Hunter</span>
+            </div>
+
+            <div class="hp-container">
+                <div class="hud-label">
+                    ❤️ HP
+                    <span id="playerHpText">100 / 100</span>
+                </div>
+
+                <div class="bar">
+                    <div id="playerHpBar" class="hp-bar"></div>
+                </div>
+            </div>
+
+            <div class="xp-container">
+                <div class="hud-label">
+                    ⭐ XP
+                    <span id="xpText">0 / 100</span>
+                </div>
+
+                <div class="bar">
+                    <div id="xpBar" class="xp-bar"></div>
+                </div>
+            </div>
+
+            <div class="level">
+                LEVEL <span id="levelText">1</span>
+            </div>
+
+        </div>
+
+
+        <div class="game-info">
+
+            <div>
+                💰 <span id="coinText">0</span>
+            </div>
+
+            <div>
+                👾 <span id="killText">0</span> / 100
+            </div>
+
+            <div>
+                ⏱️ <span id="timerText">00:00</span>
+            </div>
+
+        </div>
+
+
+        <div class="game-controls">
+
+            <button id="pauseBtn" title="Pause">
+                ⏸️
+            </button>
+
+            <button id="restartBtn" title="Restart">
+                🔄
+            </button>
+
+            <button id="menuBtn" title="Main Menu">
+                🏠
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ZONE INFO -->
+    <div class="zone-info">
+        🗺️ <span id="zoneName">FOREST</span>
+    </div>
+
+
+    <!-- BOSS COUNTER -->
+    <div id="bossCounter" class="boss-counter hidden">
+
+        <div class="boss-warning">
+            ⚠️ BOSS BATTLE ⚠️
+        </div>
+
+        <div>
+            👹 Boss:
+            <span id="bossNumber">1</span> / 3
+        </div>
+
+    </div>
+
+
+    <!-- GAME CANVAS -->
+    <main id="gameWorld">
+
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Monster HUD -->
+        <div id="monsterHud" class="monster-hud hidden">
+
+            <div class="monster-name">
+                👹 <span id="monsterName">Monster</span>
+            </div>
+
+            <div class="monster-hp-bar">
+                <div id="monsterHpBar"></div>
+            </div>
+
+            <div class="monster-hp-text">
+                <span id="monsterHpText">100 / 100</span>
+            </div>
+
+        </div>
+
+
+        <!-- DAMAGE EFFECT -->
+        <div id="damageLayer"></div>
+
+        <!-- FIREBALL EFFECT -->
+        <div id="fireballLayer"></div>
+
+        <!-- HIT EFFECT -->
+        <div id="hitLayer"></div>
+
+    </main>
+
+
+    <!-- WEAPON HUD -->
+    <div class="weapon-hud">
+
+        <div class="current-weapon">
+
+            <div class="weapon-icon" id="weaponIcon">
+                🏹
+            </div>
+
+            <div class="weapon-info">
+                <strong id="weaponName">Bow</strong>
+                <small>
+                    Lv.<span id="weaponLevel">1</span>
+                </small>
+            </div>
+
+        </div>
+
+
+        <div class="weapon-actions">
+
+            <button id="attackBtn" class="attack-btn">
+                ⚔️
+                <span>ATTACK</span>
+            </button>
+
+            <button id="fireballBtn" class="fireball-btn">
+                🔥
+                <span>FIREBALL</span>
+            </button>
+
+            <button id="potionBtn" class="potion-btn">
+                🧪
+                <span id="potionCount">3</span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE CONTROLS -->
+    <div id="mobileControls">
+
+        <div class="joystick">
+            <button data-direction="up">▲</button>
+
+            <div>
+                <button data-direction="left">◀</button>
+                <button data-direction="center">●</button>
+                <button data-direction="right">▶</button>
+            </div>
+
+            <button data-direction="down">▼</button>
+        </div>
+
+        <div class="mobile-actions">
+
+            <button id="mobileAttack">
+                ⚔️
+            </button>
+
+            <button id="mobileFireball">
+                🔥
+            </button>
+
+            <button id="mobilePotion">
+                🧪
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME FOOTER -->
+    <div class="game-footer">
+        ULUG'BEK.R
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PAUSE WINDOW
+========================= -->
+<div id="pauseModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-icon">⏸️</div>
+
+        <h2>PAUSE</h2>
+
+        <p>O'yin vaqtincha to'xtatildi.</p>
+
+        <button id="continueBtn" class="modal-btn primary">
+            ▶️ DAVOM ETISH
+        </button>
+
+        <button id="pauseRestartBtn" class="modal-btn">
+            🔄 RESTART
+        </button>
+
+        <button id="pauseMenuBtn" class="modal-btn danger">
+            🏠 ASOSIY MENYU
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     GAME OVER WINDOW
+========================= -->
+<div id="gameOverModal" class="modal">
+
+    <div class="modal-box game-over">
+
+        <div class="modal-icon">💀</div>
+
+        <h2>GAME OVER</h2>
+
+        <p>Monsterlar seni mag'lub etdi!</p>
+
+        <div class="result-stats">
+
+            <div>
+                👾
+                <span>Maxluqlar</span>
+                <strong id="gameOverKills">0</strong>
+            </div>
+
+            <div>
+                💰
+                <span>Coin</span>
+                <strong id="gameOverCoins">0</strong>
+            </div>
+
+            <div>
+                ⭐
+                <span>Level</span>
+                <strong id="gameOverLevel">1</strong>
+            </div>
+
+            <div>
+                ⏱️
+                <span>Vaqt</span>
+                <strong id="gameOverTime">00:00</strong>
+            </div>
+
+        </div>
+
+        <button id="gameOverRestart" class="modal-btn primary">
+            🔄 QAYTA O'YNASH
+        </button>
+
+        <button id="gameOverMenu" class="modal-btn">
+            🏠 ASOSIY MENYU
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     VICTORY WINDOW
+========================= -->
+<div id="victoryModal" class="modal">
+
+    <div class="modal-box victory">
+
+        <div class="modal-icon">🏆</div>
+
+        <h2>VICTORY!</h2>
+
+        <p>Sen barcha bosslarni mag'lub etding!</p>
+
+        <div class="victory-stars">
+            ⭐ ⭐ ⭐
+        </div>
+
+        <div class="result-stats">
+
+            <div>
+                👾
+                <span>Maxluqlar</span>
+                <strong id="victoryKills">0</strong>
+            </div>
+
+            <div>
+                💰
+                <span>Coin</span>
+                <strong id="victoryCoins">0</strong>
+            </div>
+
+            <div>
+                ⭐
+                <span>Level</span>
+                <strong id="victoryLevel">1</strong>
+            </div>
+
+            <div>
+                ⏱️
+                <span>Vaqt</span>
+                <strong id="victoryTime">00:00</strong>
+            </div>
+
+        </div>
+
+        <button id="victoryRestart" class="modal-btn primary">
+            🔄 QAYTA O'YNASH
+        </button>
+
+        <button id="victoryMenu" class="modal-btn">
+            🏠 ASOSIY MENYU
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SHOP WINDOW
+========================= -->
+<div id="shopModal" class="modal">
+
+    <div class="large-modal-box">
+
+        <button class="close-btn" data-close="shopModal">
+            ✕
+        </button>
+
+        <h2>🛒 MAGAZIN</h2>
+
+        <div class="shop-coins">
+            💰 <span id="shopCoins">0</span> Coin
+        </div>
+
+        <div class="shop-tabs">
+
+            <button class="shop-tab active" data-shop-tab="weapons">
+                🏹 Qurollar
+            </button>
+
+            <button class="shop-tab" data-shop-tab="skins">
+                👕 Skinlar
+            </button>
+
+            <button class="shop-tab" data-shop-tab="items">
+                🧪 Itemlar
+            </button>
+
+        </div>
+
+        <div id="shopContent" class="shop-content">
+            <!-- JS orqali to'ldiriladi -->
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     WEAPONS WINDOW
+========================= -->
+<div id="weaponsModal" class="modal">
+
+    <div class="large-modal-box">
+
+        <button class="close-btn" data-close="weaponsModal">
+            ✕
+        </button>
+
+        <h2>🏹 QUROLLAR</h2>
+
+        <div id="weaponsContent" class="items-grid">
+            <!-- JS -->
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SKINS WINDOW
+========================= -->
+<div id="skinsModal" class="modal">
+
+    <div class="large-modal-box">
+
+        <button class="close-btn" data-close="skinsModal">
+            ✕
+        </button>
+
+        <h2>👕 SKINLAR</h2>
+
+        <div id="skinsContent" class="items-grid">
+            <!-- JS -->
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ZONES WINDOW
+========================= -->
+<div id="zonesModal" class="modal">
+
+    <div class="large-modal-box">
+
+        <button class="close-btn" data-close="zonesModal">
+            ✕
+        </button>
+
+        <h2>🗺️ ZONALAR</h2>
+
+        <div id="zonesContent" class="zones-grid">
+            <!-- JS -->
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SETTINGS WINDOW
+========================= -->
+<div id="settingsModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" data-close="settingsModal">
+            ✕
+        </button>
+
+        <h2>⚙️ SOZLAMALAR</h2>
+
+        <div class="setting-row">
+
+            <span>🔊 Ovoz</span>
+
+            <label class="switch">
+                <input type="checkbox" id="soundToggle" checked>
+                <span></span>
+            </label>
+
+        </div>
+
+        <div class="setting-row">
+
+            <span>🎵 Musiqa</span>
+
+            <label class="switch">
+                <input type="checkbox" id="musicToggle" checked>
+                <span></span>
+            </label>
+
+        </div>
+
+        <div class="setting-row">
+
+            <span>📱 Mobil boshqaruv</span>
+
+            <label class="switch">
+                <input type="checkbox" id="mobileToggle" checked>
+                <span></span>
+            </label>
+
+        </div>
+
+        <button id="resetSaveBtn" class="modal-btn danger">
+            🗑️ SAQLANGAN MA'LUMOTNI O'CHIRISH
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     NOTIFICATION
+========================= -->
+<div id="notification" class="notification">
+    <span id="notificationIcon">ℹ️</span>
+    <span id="notificationText">Xabar</span>
+</div>
+
+
+<!-- =========================
+     LEVEL UP
+========================= -->
+<div id="levelUpEffect" class="level-up-effect">
+
+    <div>
+        ⭐ LEVEL UP! ⭐
+    </div>
+
+    <strong id="newLevelText">
+        LEVEL 2
+    </strong>
+
+</div>
+
+
+<!-- =========================
+     BOSS INTRO
+========================= -->
+<div id="bossIntro" class="boss-intro">
+
+    <div class="boss-intro-content">
+
+        <div class="boss-skull">
+            👹
+        </div>
+
+        <h1>BOSS BATTLE</h1>
+
+        <h2 id="bossIntroName">
+            BOSS
+        </h2>
+
+        <p>
+            ⚠️ Juda kuchli dushman paydo bo'ldi!
+        </p>
+
+        <div class="boss-count">
+            BOSS <span id="bossIntroNumber">1</span> / 3
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script src="script.js"></script>
+
+</body>
+</html>
+
